@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para mi amor ❤️</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+min-height:100vh;
+font-family:Georgia,serif;
+color:white;
+background:radial-gradient(circle,#3a2508,#120b03 55%,#050505);
+overflow-x:hidden;
+}
+
+.stars{
+position:fixed;
+inset:0;
+pointer-events:none;
+}
+
+.star{
+position:absolute;
+width:3px;
+height:3px;
+background:#ffe783;
+border-radius:50%;
+animation:brillar 2s infinite alternate;
+}
+
+@keyframes brillar{
+from{opacity:.15;transform:scale(.6)}
+to{opacity:1;transform:scale(1.5)}
+}
+
+#entrada{
+position:fixed;
+inset:0;
+z-index:20;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+background:radial-gradient(circle,#4a3008,#120b03 55%,#050505);
+transition:opacity 1.5s;
+}
+
+.caja{
+width:min(90%,430px);
+padding:40px 25px;
+text-align:center;
+background:rgba(20,12,2,.8);
+border:1px solid rgba(255,211,55,.5);
+border-radius:28px;
+box-shadow:0 0 50px rgba(255,196,37,.15);
+}
+
+.caja h1{
+color:#ffd83d;
+font-size:32px;
+}
+
+.corazon{
+font-size:45px;
+animation:latido 1.4s infinite;
+}
+
+@keyframes latido{
+50%{transform:scale(1.15)}
+}
+
+input{
+width:100%;
+padding:15px;
+border-radius:13px;
+border:1px solid #e0b62c;
+background:#090909;
+color:white;
+text-align:center;
+font-size:18px;
+outline:none;
+}
+
+button{
+margin-top:16px;
+padding:14px 32px;
+border:0;
+border-radius:30px;
+background:linear-gradient(135deg,#ffd83d,#ffb300);
+font-weight:bold;
+font-size:16px;
+cursor:pointer;
+}
+
+#error{
+display:none;
+margin-top:15px;
+color:#ff7777;
+}
+
+#contenido{
+display:none;
+position:relative;
+z-index:2;
+min-height:100vh;
+padding:45px 20px 60px;
+text-align:center;
+}
+
+.titulo{
+color:#ffd83d;
+font-size:38px;
+animation:aparecer 2s forwards;
+}
+
+.subtitulo{
+color:#eee;
+}
+
+.ramo{
+position:relative;
+width:310px;
+height:340px;
+margin:15px auto;
+}
+
+.tallo{
+position:absolute;
+width:7px;
+height:205px;
+bottom:25px;
+left:50%;
+background:linear-gradient(to right,#294c1d,#78a936);
+border-radius:10px;
+transform-origin:bottom;
+transform:rotate(var(--rot)) scaleY(0);
+animation:crecer 2.5s ease forwards;
+animation-delay:var(--delay);
+}
+
+@keyframes crecer{
+to{transform:rotate(var(--rot)) scaleY(1)}
+}
+
+.flor{
+position:absolute;
+width:82px;
+height:82px;
+left:calc(50% + var(--x));
+top:var(--y);
+transform:translate(-50%,-50%) scale(0);
+animation:florecer 2s ease forwards;
+animation-delay:var(--delay);
+}
+
+.petalo{
+position:absolute;
+width:35px;
+height:53px;
+left:23px;
+top:14px;
+background:#ffd21f;
+border-radius:50%;
+transform-origin:17px 27px;
+}
+
+.petalo:nth-child(1){transform:rotate(0deg) translateY(-23px)}
+.petalo:nth-child(2){transform:rotate(45deg) translateY(-23px)}
+.petalo:nth-child(3){transform:rotate(90deg) translateY(-23px)}
+.petalo:nth-child(4){transform:rotate(135deg) translateY(-23px)}
+.petalo:nth-child(5){transform:rotate(180deg) translateY(-23px)}
+.petalo:nth-child(6){transform:rotate(225deg) translateY(-23px)}
+.petalo:nth-child(7){transform:rotate(270deg) translateY(-23px)}
+.petalo:nth-child(8){transform:rotate(315deg) translateY(-23px)}
+
+.centro{
+position:absolute;
+width:31px;
+height:31px;
+left:25px;
+top:25px;
+background:#704208;
+border-radius:50%;
+z-index:2;
+}
+
+@keyframes florecer{
+0%{
+opacity:0;
+transform:translate(-50%,-50%) scale(0) rotate(-25deg);
+}
+70%{
+transform:translate(-50%,-50%) scale(1.15) rotate(5deg);
+}
+100%{
+opacity:1;
+transform:translate(-50%,-50%) scale(1) rotate(0);
+}
+}
+
+.carta{
+max-width:720px;
+margin:0 auto;
+padding:35px 28px;
+background:rgba(255,255,255,.07);
+border:1px solid rgba(255,211,50,.3);
+border-radius:25px;
+backdrop-filter:blur(13px);
+box-shadow:0 0 40px rgba(255,193,7,.13);
+opacity:0;
+transform:translateY(40px);
+animation:mostrarCarta 2s 6s forwards;
+}
+
+.carta p{
+text-align:left;
+line-height:1.85;
+font-size:17px;
+margin-bottom:20px;
+}
+
+.final{
+text-align:center!important;
+font-size:35px!important;
+}
+
+@keyframes mostrarCarta{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+@media(max-width:600px){
+.titulo{font-size:30px}
+.ramo{transform:scale(.85)}
+.carta{padding:25px 20px}
+.carta p{font-size:16px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<section id="entrada">
+
+<div class="caja">
+
+<div class="corazon">❤️</div>
+
+<h1>Una sorpresa para ti</h1>
+
+<p>
+Hay algo que preparé especialmente para ti.
+<br><br>
+Escribe la palabra para descubrirlo 🌻
+</p>
+
+<input
+type="text"
+id="clave"
+placeholder="Escribe la palabra..."
+autocomplete="off">
+
+<button onclick="abrirCarta()">
+Abrir mi sorpresa 💛
+</button>
+
+<div id="error">
+Mmm... esa no es la palabra 👀❤️
+</div>
+
+</div>
+
+</section>
+
+
+<main id="contenido">
+
+<h1 class="titulo">Para mi amor ❤️</h1>
+
+<p class="subtitulo">
+Un pequeño detalle para este 21 de septiembre 🌻
+</p>
+
+
+<div class="ramo">
+
+<div class="tallo" style="--rot:-30deg;--delay:.5s"></div>
+<div class="tallo" style="--rot:-16deg;--delay:1s"></div>
+<div class="tallo" style="--rot:0deg;--delay:1.3s"></div>
+<div class="tallo" style="--rot:16deg;--delay:1.6s"></div>
+<div class="tallo" style="--rot:30deg;--delay:1.9s"></div>
+
+
+<div class="flor" style="--x:-88px;--y:65px;--delay:2.2s">
+<div class="petalo"></div><div class="petalo"></div>
+<div class="petalo"></div><div class="petalo"></div>
+<div class="petalo"></div><div class="petalo"></div>
+<div class="petalo"></div><div class="petalo"></div>
+<div class="centro"></div>
+</div>
+
+<div class="flor" style="--x:0px;--y:22px;--delay:2.7s">
+<div class="petalo"></div><div class="petalo"></div>
+<div class="petalo"></div><div class="petalo"></div>
+<div class="petalo"></div><div class="petalo"></div>
+<div class="petalo"></div><div class="petalo"></div>
+<div class="centro"></div>
+</div>
+
+<div class="flor" style="--x:88px;--y:65px;--delay:3.2s">
+<div class="petalo"></div><div class="petalo"></div>
+<div class="petalo"></div><div class="petalo"></div>
+<div class="petalo"></div><div class="petalo"></div>
+<div class="petalo"></div><div class="petalo"></div>
+<div class="centro"></div>
+</div>
+
+<div class="flor" style="--x:-45px;--y:115px;--delay:3.7s">
+<div class="petalo"></div><div class="petalo"></div>
+<div class="petalo"></div><div class="petalo"></div>
+<div class="petalo"></div><div class="petalo"></div>
+<div class="petalo"></div><div class="petalo"></div>
+<div class="centro"></div>
+</div>
+
+<div class="flor" style="--x:45px;--y:115px;--delay:4.2s">
+<div class="petalo"></div><div class="petalo"></div>
+<div class="petalo"></div><div class="petalo"></div>
+<div class="petalo"></div><div class="petalo"></div>
+<div class="petalo"></div><div class="petalo"></div>
+<div class="centro"></div>
+</div>
+
+</div>
+
+
+<section class="carta">
+
+<p>Holaaa, amor ❤️.</p>
+
+<p>
+Sé que no ha pasado tanto tiempo desde la última carta que te dediqué,
+pero tú me enseñaste que una carta siempre es mejor que nada.
+</p>
+
+<p>
+Y como esta vez no podré llevarte flores por el tema con tu mami,
+decidí hacerte este pequeño regalito para que, aunque no pueda estar
+ahí físicamente, puedas sentir un poquito de mi cariño.
+</p>
+
+<p>
+Te amo muchísimo y no voy a dejar que la distancia sea un impedimento
+para demostrarte lo importante que eres para mí, mucho menos en fechas
+tan especiales como esta.
+</p>
+
+<p>
+Quizás no pueda estar a tu lado en persona, pero quiero que siempre
+tengas presente que mi amor y mis detalles pueden llegar hasta ti de
+alguna manera.
+</p>
+
+<p class="final">❤️🌻❤️</p>
+
+</section>
+
+</main>
+
+
+<script>
+
+const estrellas=document.getElementById("stars");
+
+for(let i=0;i<90;i++){
+
+const estrella=document.createElement("div");
+
+estrella.className="star";
+
+estrella.style.left=Math.random()*100+"%";
+estrella.style.top=Math.random()*100+"%";
+estrella.style.animationDelay=Math.random()*3+"s";
+
+estrellas.appendChild(estrella);
+}
+
+
+function abrirCarta(){
+
+const input=document.getElementById("clave");
+
+const palabra=input.value.trim().toLowerCase();
+
+const entrada=document.getElementById("entrada");
+
+const contenido=document.getElementById("contenido");
+
+const error=document.getElementById("error");
+
+
+if(palabra==="her❤️"){
+
+error.style.display="none";
+
+entrada.style.opacity="0";
+
+setTimeout(()=>{
+
+entrada.style.display="none";
+
+contenido.style.display="block";
+
+},1500);
+
+}else{
+
+error.style.display="block";
+
+input.value="";
+
+input.focus();
+
+}
+
+}
+
+
+document.getElementById("clave")
+.addEventListener("keydown",function(event){
+
+if(event.key==="Enter"){
+abrirCarta();
+}
+
+});
+
+</script>
+
+</body>
+</html>
